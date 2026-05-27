@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { DashboardHeader } from "@/components/dashboard/header"
 import { Bot, Phone, Clock, MoreHorizontal, Plus, Search } from "lucide-react"
 
 const assistants = [
   {
+    id: "restaurant-reservations",
     name: "Restaurant Reservations",
     language: "Hindi + English",
     voice: "Aanya (Female)",
@@ -16,6 +18,7 @@ const assistants = [
     description: "Handles table bookings, menu queries, and special requests",
   },
   {
+    id: "hotel-concierge",
     name: "Hotel Concierge",
     language: "Hindi + English + Marathi",
     voice: "Arjun (Male)",
@@ -26,6 +29,7 @@ const assistants = [
     description: "Room bookings, check-in queries, and local recommendations",
   },
   {
+    id: "real-estate-lead-qualifier",
     name: "Real Estate Lead Qualifier",
     language: "Hindi + English",
     voice: "Priya (Female)",
@@ -36,6 +40,7 @@ const assistants = [
     description: "Qualifies inbound leads and schedules property visits",
   },
   {
+    id: "recruitment-screener",
     name: "Recruitment Screener",
     language: "English",
     voice: "Vikram (Male)",
@@ -84,9 +89,10 @@ export default function AssistantsPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filtered.map((assistant) => (
-            <div
-              key={assistant.name}
-              className="bg-white border border-[#E4E1F0] rounded-xl p-5 hover:border-[#6C47FF]/30 transition-colors"
+            <Link
+              key={assistant.id}
+              href={`/dashboard/assistants/${assistant.id}`}
+              className="bg-white border border-[#E4E1F0] rounded-xl p-5 hover:border-[#6C47FF]/40 hover:shadow-sm transition-all block"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
@@ -100,7 +106,13 @@ export default function AssistantsPage() {
                     <p className="text-xs text-[#6B7285] mt-0.5">{assistant.voice}</p>
                   </div>
                 </div>
-                <button className="p-1 rounded hover:bg-[#F7F6FB]">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                  }}
+                  className="p-1 rounded hover:bg-[#F7F6FB]"
+                >
                   <MoreHorizontal className="w-4 h-4 text-[#6B7285]" />
                 </button>
               </div>
@@ -152,7 +164,7 @@ export default function AssistantsPage() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
