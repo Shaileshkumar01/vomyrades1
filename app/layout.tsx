@@ -1,48 +1,36 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono, IBM_Plex_Sans } from 'next/font/google'
-import { Courier_Prime } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+import { DM_Sans, DM_Mono } from 'next/font/google'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
-const _courierPrime = Courier_Prime({ weight: ["400", "700"], subsets: ["latin"] });
-const _ibmPlexSans = IBM_Plex_Sans({ weight: ["300", "400", "500", "600"], subsets: ["latin"] });
+const dmSans = DM_Sans({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans"
+})
+
+const dmMono = DM_Mono({ 
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-mono"
+})
 
 export const metadata: Metadata = {
-  title: 'Agentic — Autonomous AI Agents at Scale',
-  description: 'Deploy autonomous AI agents that think, act, and execute across any workflow. Connect 200+ integrations, run agents in parallel, and ship faster with the Agentic platform.',
-  keywords: ['AI agents', 'autonomous agents', 'LLM orchestration', 'AI automation', 'multi-agent platform'],
-  authors: [{ name: 'Agentic' }],
+  title: 'Vomyra - AI Voice Agents for India',
+  description: 'Deploy AI voice agents that handle calls, book appointments, and close leads - 24/7, in any Indian language. No coding needed.',
+  keywords: ['AI voice agents', 'voice AI', 'Indian languages', 'call automation', 'AI phone agents'],
+  authors: [{ name: 'Vomyra' }],
   openGraph: {
-    title: 'Agentic — Autonomous AI Agents at Scale',
-    description: 'Deploy autonomous AI agents that think, act, and execute across any workflow.',
+    title: 'Vomyra - AI Voice Agents for India',
+    description: 'Deploy AI voice agents that handle calls, book appointments, and close leads - 24/7, in any Indian language.',
     type: 'website',
-    url: 'https://agentic.ai',
-    siteName: 'Agentic',
+    url: 'https://vomyra.com',
+    siteName: 'Vomyra',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Agentic — Autonomous AI Agents at Scale',
-    description: 'Deploy autonomous AI agents that think, act, and execute across any workflow.',
-  },
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    title: 'Vomyra - AI Voice Agents for India',
+    description: 'Deploy AI voice agents that handle calls, book appointments, and close leads - 24/7, in any Indian language.',
   },
 }
 
@@ -52,10 +40,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" className="bg-background">
+      <body className={`${dmSans.variable} ${dmMono.variable} font-sans antialiased`}>
         {children}
-        <Analytics />
       </body>
     </html>
   )
