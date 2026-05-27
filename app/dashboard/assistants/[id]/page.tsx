@@ -8,6 +8,7 @@ import { SpeechInputTab } from "@/components/dashboard/assistant-tabs/speech-inp
 import { VoiceTab } from "@/components/dashboard/assistant-tabs/voice-tab"
 import { ToolsTab } from "@/components/dashboard/assistant-tabs/tools-tab"
 import { AdvanceSettingsTab } from "@/components/dashboard/assistant-tabs/advance-settings-tab"
+import { IntegrationTab } from "@/components/dashboard/assistant-tabs/integration-tab"
 import { ArrowLeft, Phone, MoreHorizontal } from "lucide-react"
 
 const tabs = [
@@ -16,6 +17,7 @@ const tabs = [
   { id: "voice", label: "Voice" },
   { id: "tools", label: "Tools" },
   { id: "advance", label: "Advance Settings" },
+  { id: "integration", label: "Integration" },
 ] as const
 
 type TabId = (typeof tabs)[number]["id"]
@@ -130,6 +132,7 @@ export default function AssistantDetailPage({
             {activeTab === "voice" && <VoiceTab />}
             {activeTab === "tools" && <ToolsTab />}
             {activeTab === "advance" && <AdvanceSettingsTab />}
+            {activeTab === "integration" && <IntegrationTab />}
           </div>
         </div>
       </div>
