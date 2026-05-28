@@ -28,6 +28,13 @@ import {
 interface CreateAssistantModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  onCreateAssistant?: (assistant: {
+    name: string
+    description: string
+    welcomeMessage: string
+    voice: string
+    language: string
+  }) => void
 }
 
 type Step = "basics" | "configuration" | "integration"
@@ -111,6 +118,7 @@ function IntegrationCard({
 export function CreateAssistantModal({
   open,
   onOpenChange,
+  onCreateAssistant,
 }: CreateAssistantModalProps) {
   const [step, setStep] = useState<Step>("basics")
 
@@ -161,29 +169,22 @@ export function CreateAssistantModal({
   }
 
   const handleCreate = () => {
-    // Here you would typically call an API to create the assistant
-    console.log("Creating assistant:", {
-      name,
-      description,
-      welcomeMessage,
-      aiProvider,
-      model,
-      voiceProvider,
-      voice,
-      language,
-      integrations: {
-        crm: crmEnabled ? { provider: crmProvider } : null,
-        petpooja: petpoojaEnabled ? { restaurantId: petpoojaRestaurantId } : null,
-        sheets: sheetsEnabled ? { url: sheetsUrl } : null,
-        calendar: calendarEnabled,
-        webhooks: webhookEnabled ? webhooks : [],
-      },
-    })
+    // Call the callback to add the new assistant
+    if (onCreateAssistant) {
+      onCreateAssistant({
+        name,
+        description,
+        welcomeMessage,
+        voice,
+        language,
+      })
+    }
     onOpenChange(false)
     // Reset form
     setStep("basics")
     setName("")
     setDescription("")
+    setWelcomeMessage("Hello! How can I help you today?")
   }
 
   const canProceed = () => {
