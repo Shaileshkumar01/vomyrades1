@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { DashboardHeader } from "@/components/dashboard/header"
+import { useCreateAssistant } from "@/contexts/create-assistant-context"
 import { Bot, Phone, Clock, MoreHorizontal, Plus, Search } from "lucide-react"
 
 const assistants = [
@@ -53,15 +54,19 @@ const assistants = [
 ]
 
 export default function AssistantsPage() {
+  const { openCreateModal } = useCreateAssistant()
   const [search, setSearch] = useState("")
 
   const filtered = assistants.filter((a) =>
-    a.name.toLowerCase().includes(search.toLowerCase())
+    a.name.toLowerCase().includes(search.toLowerCase()) ||
+    a.description.toLowerCase().includes(search.toLowerCase()) ||
+    a.language.toLowerCase().includes(search.toLowerCase()) ||
+    a.voice.toLowerCase().includes(search.toLowerCase())
   )
 
   return (
     <>
-      <DashboardHeader title="Assistants" />
+      <DashboardHeader title="Assistants" hideNewAssistantButton />
       <div className="p-8">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -70,7 +75,10 @@ export default function AssistantsPage() {
               Manage your voice AI agents and their configurations
             </p>
           </div>
-          <button className="flex items-center gap-2 bg-[#6C47FF] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#5a39d9] transition-colors">
+          <button
+            onClick={openCreateModal}
+            className="flex items-center gap-2 bg-[#6C47FF] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#5a39d9] transition-colors"
+          >
             <Plus className="w-4 h-4" />
             New assistant
           </button>
